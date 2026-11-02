@@ -51,7 +51,8 @@ def gen_paths(ws, ws_id, huc12_id, reach_type, data_folder):
     ### Create paths dictionary
     paths_dict = {
         ### Initialize path to TauDEM toolbox
-        'taudem_toolbox_path': 'C:/Program Files/TauDEM/TauDEM5Arc/TauDEM Tools.tbx',
+        #'taudem_toolbox_path': 'C:/Program Files/TauDEM/TauDEM5Arc/TauDEM Tools.tbx',
+        'taudem_toolbox_path': '/usr/local/taudem',
         
         ### Store HUC information
         'ws_id':ws_id,

@@ -119,6 +119,8 @@ def monte_carlo(paths_dict, data_dict, rvs_dict, n, huc12_id, ws_id, cellsize, r
     reach_list = pd.Series(ss_df2['Name'].unique())
 
     stream_df = data_dict['stream_df']
+    #print(stream_df)
+    print(ss_df)
 
     # Check that the reaches consist of a single polyline
     max_segments_per_reach = stream_df.groupby(['Code']).count()['Length'].max()
@@ -147,6 +149,7 @@ def monte_carlo(paths_dict, data_dict, rvs_dict, n, huc12_id, ws_id, cellsize, r
 
     q_log = list()
     stage_log = list()
+    print(f'\t{ctime()} - Length of reach {len(reach_list)}')
 
     reach_counter = 0
     for reach in reach_list:

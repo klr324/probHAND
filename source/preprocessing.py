@@ -115,8 +115,8 @@ def generate_huc8_stream_network(paths_dict,f):
             f.write ('         Removing pits from buffered DEM\n\n')
             args = ('8', huc8_dem_buffered_uri, huc8_dem_buff_filled_uri)
             # f.write('   Removing Pits\n')
-            f.write('         mpiexec -n %s PitRemove -z "%s" -fel "%s"\n\n' %args)
-            os.system('mpiexec -n %s PitRemove -z "%s" -fel "%s"' %args)
+            f.write('         mpiexec -n %s pitremove -z "%s" -fel "%s"\n\n' %args)
+            os.system('mpiexec -n %s pitremove -z "%s" -fel "%s"' %args)
             
         f.write('      Calculate slope & d-infinity flow direction - Start\n')
         if os.path.exists(flowdir_buff_uri):
@@ -125,8 +125,8 @@ def generate_huc8_stream_network(paths_dict,f):
             f.write( '         Calculating D-inf flow direction and slope from buffered DEM\n')
             args = ('8', huc8_dem_buff_filled_uri, flowdir_buff_uri, slope_buff_uri)
             
-            f.write('         mpiexec -n %s DinfFlowDir -fel "%s" -ang "%s" -slp "%s"\n\n' %args)
-            os.system('mpiexec -n %s DinfFlowDir -fel "%s" -ang "%s" -slp "%s"' %args)
+            f.write('         mpiexec -n %s dinfflowdir -fel "%s" -ang "%s" -slp "%s"\n\n' %args)
+            os.system('mpiexec -n %s dinfflowdir -fel "%s" -ang "%s" -slp "%s"' %args)
     
         f.write('      Calculate Flow Accumulation - Start\n')
         ### Calculate flow accumulation
@@ -137,10 +137,10 @@ def generate_huc8_stream_network(paths_dict,f):
             f.write ('         Calculating flow accumulation from D-infinity flow direction\n')
             args = ('8', flowdir_buff_uri, flowacc_buff_uri)
             
-            f.write('         Call to AreaDinf\n')
+            f.write('         Call to areadinf\n')
             
-            f.write('         mpiexec -n %s AreaDinf -ang "%s" -sca "%s" -nc\n\n' %args)
-            os.system('mpiexec -n %s AreaDinf -ang "%s" -sca "%s" -nc' %args)
+            f.write('         mpiexec -n %s areadinf -ang "%s" -sca "%s" -nc\n\n' %args)
+            os.system('mpiexec -n %s areadinf -ang "%s" -sca "%s" -nc' %args)
     
         ### Maximum flow accumulation is greater than threshold, adjust it
         f.write('         Calls to GDAL\n')
@@ -170,8 +170,8 @@ def generate_huc8_stream_network(paths_dict,f):
             f.write ('         Delineating stream network from flow accumulation raster\n\n')
             args = ('8', flowacc_buff_uri, huc8_stream_uri_5m, str(thresh))
             
-            f.write('         mpiexec -n %s Threshold -ssa "%s" -src "%s" -thresh %s\n\n' %args)
-            os.system('mpiexec -n %s Threshold -ssa "%s" -src "%s" -thresh %s' %args)
+            f.write('         mpiexec -n %s threshold -ssa "%s" -src "%s" -thresh %s\n\n' %args)
+            os.system('mpiexec -n %s threshold -ssa "%s" -src "%s" -thresh %s' %args)
             
     #upsample stream raster from 5m to 1m
     pixel_size = constants.pixel_size
@@ -181,7 +181,7 @@ def generate_huc8_stream_network(paths_dict,f):
 
     ### Generaet HUC-8 level HAND ###
     args = ('8', flowdir_buff_uri, huc8_dem_buff_filled_uri, huc8_stream_uri_5m, hand_uri)
-    os.system('mpiexec -n %s DinfDistDown -ang "%s" -fel "%s" -src "%s" -dd "%s" -m v -nc' % args)
+    os.system('mpiexec -n %s dinfdistdown -ang "%s" -fel "%s" -src "%s" -dd "%s" -m v -nc' % args)
     
 
 # def generate_headwater_mask(paths_dict,f):
@@ -204,40 +204,40 @@ def generate_huc8_stream_network(paths_dict,f):
 #     output_point_uri = paths_dict['watershed_output_uri']
     
 #     """
-#     mpiexec -n 8 PitRemove logan.tif
+#     mpiexec -n 8 pitremove logan.tif
 #         input: DEM
 #         output: fel
-#     mpiexec -n 8 D8Flowdir -p loganp.tif -sd8 logansd8.tif -fel loganfel.tif
+#     mpiexec -n 8 d8flowdir -p loganp.tif -sd8 logansd8.tif -fel loganfel.tif
 #         input: fel.tif
 #         outputs: p, sd8
-#     mpiexec -n 8 DinfFlowdir -ang loganang.tif -slp loganslp.tif -fel loganfel.tif 
+#     mpiexec -n 8 dinfflowdir -ang loganang.tif -slp loganslp.tif -fel loganfel.tif 
 #         input: fel.tif
 #         output: ang.tif, slp.tif
-#     mpiexec -n 8 AreaD8 -p loganp.tif -ad8 loganad8.tif
+#     mpiexec -n 8 aread8 -p loganp.tif -ad8 loganad8.tif
 #         input: p.tif
 #         output: ad8.tif
-#     mpiexec -n 8 AreaDinf -ang loganang.tif -sca logansca.tif ==> 
+#     mpiexec -n 8 areadinf -ang loganang.tif -sca logansca.tif ==> 
 #         input: ang.tif
 #         output: sca.tif
-#     mpiexec -n 8 Aread8 -p loganp.tif -o loganoutlet.shp -ad8 loganad8o.tif 
+#     mpiexec -n 8 aread8 -p loganp.tif -o loganoutlet.shp -ad8 loganad8o.tif 
 #         inputs: p.tif, outlet.tif
 #         output: ad80.tif
-#     mpiexec -n 8 Gridnet -p loganp.tif -plen loganplen.tif -tlen logantlen.tif -gord logangord.tif 
+#     mpiexec -n 8 gridnet -p loganp.tif -plen loganplen.tif -tlen logantlen.tif -gord logangord.tif 
 #         input: p.tif
 #         output: plen.tif, tlen.tif, gord.tif
-#     mpiexec -n 8 PeukerDouglas -fel loganfel.tif -ss loganss.tif 
+#     mpiexec -n 8 peukerdouglas -fel loganfel.tif -ss loganss.tif 
 #         input: fel.tif
 #         output: ss.tif
-#     mpiexec -n 8 Aread8 -p loganp.tif -o loganoutlet.shp -ad8 loganssa.tif -wg loganss.tif
+#     mpiexec -n 8 aread8 -p loganp.tif -o loganoutlet.shp -ad8 loganssa.tif -wg loganss.tif
 #         inputs: p.tif, shp.tif
 #         outputs: ssa.tif, ss.tif
-#     mpiexec -n 8 Dropanalysis -p loganp.tif -fel loganfel.tif -ad8 loganad8.tif -ssa loganssa.tif -drp logandrp.txt -o loganoutlet.shp -par 5 500 10 0 
+#     mpiexec -n 8 dropanalysis -p loganp.tif -fel loganfel.tif -ad8 loganad8.tif -ssa loganssa.tif -drp logandrp.txt -o loganoutlet.shp -par 5 500 10 0 
 #         inputs: p.tif, fel.tif, ad8.tif, ssa.tif, outlet.shp
 #         output: drp.txt
-#     mpiexec -n 8 Threshold -ssa loganssa.tif -src logansrc.tif -thresh 300
+#     mpiexec -n 8 threshold -ssa loganssa.tif -src logansrc.tif -thresh 300
 #         inputs: ssa.tif, threshold from drp.txt (the smallest threshold with a Tstatistic that is less than 2)
 #         output: src.tif
-#     mpiexec -n 8 Streamnet -fel loganfel.tif -p loganp.tif -ad8 loganad8.tif -src logansrc.tif -ord loganord3.tif -tree logantree.dat -coord logancoord.dat -net logannet.shp -w loganw.tif -o loganoutlet.shp
+#     mpiexec -n 8 streamnet -fel loganfel.tif -p loganp.tif -ad8 loganad8.tif -src logansrc.tif -ord loganord3.tif -tree logantree.dat -coord logancoord.dat -net logannet.shp -w loganw.tif -o loganoutlet.shp
 #         inputs: fel.tif, p.tif, ad8.tif, src.tif, outlet.shp
 #         outputs: tree.dat, coord.dat, net.shp, w.tif, 
 #     """
@@ -364,8 +364,8 @@ def generate_hand(paths_dict):
             f.write ('   Removing pits from buffered DEM\n\n')
             args = ('8', dem_buffered_uri, dem_filled_buff_uri)
             # f.write('   Removing Pits\n')
-            f.write('   mpiexec -n %s PitRemove -z "%s" -fel "%s"\n\n' %args)
-            os.system('mpiexec -n %s PitRemove -z "%s" -fel "%s"' %args)
+            f.write('   mpiexec -n %s pitremove -z "%s" -fel "%s"\n\n' %args)
+            os.system('mpiexec -n %s pitremove -z "%s" -fel "%s"' %args)
             
             
                  
@@ -376,8 +376,8 @@ def generate_hand(paths_dict):
             f.write( '         Calculating D-inf flow direction and slope from buffered DEM\n')
             args = ('8', dem_filled_buff_uri, flowdir_buff_uri, slope_uri)
             
-            f.write('         mpiexec -n %s DinfFlowDir -fel "%s" -ang "%s" -slp "%s"\n\n' %args)
-            os.system('mpiexec -n %s DinfFlowDir -fel "%s" -ang "%s" -slp "%s"' %args)
+            f.write('         mpiexec -n %s dinfflowdir -fel "%s" -ang "%s" -slp "%s"\n\n' %args)
+            os.system('mpiexec -n %s dinfflowdir -fel "%s" -ang "%s" -slp "%s"' %args)
 
         utils.clip_raster(flowdir_buff_uri, ws_uri, flowdir_uri, 1.0)
         utils.clip_raster(dem_filled_buff_uri, ws_uri, dem_filled_uri, 1.0)
@@ -392,10 +392,10 @@ def generate_hand(paths_dict):
         args = ('8', flowdir_uri, dem_filled_uri, stream_uri, hand_uri)
         
         
-        f.write('    mpiexec -n %s DinfDistDown -ang "%s" -fel '
+        f.write('    mpiexec -n %s dinfdistdown -ang "%s" -fel '
                   '"%s" -src "%s" -dd "%s" -m v -nc\n\n' %args)
         
-        os.system('mpiexec -n %s DinfDistDown -ang "%s" -fel '
+        os.system('mpiexec -n %s dinfdistdown -ang "%s" -fel '
                   '"%s" -src "%s" -dd "%s" -m v -nc' %args)
             
         f.write('Done trying to generate HAND')
