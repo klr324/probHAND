@@ -2,9 +2,11 @@ from osgeo import gdal
 import os
 import numpy as np
 
+DATA_PATH = r'\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Post-processing\backwaters'
+OUT_PATH = r'\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Post-processing\merged_1-17-21'
 
-DATA_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\Post-processing\backwaters'
-OUT_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\Post-processing\merged_1-17-21'
+#DATA_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\Post-processing\backwaters'
+#OUT_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\Post-processing\merged_1-17-21'
 RUN_PARAMETERS = '_Depth_1m_'
 
 
@@ -80,7 +82,8 @@ def merge_rasters(type, basins, intervals, percentiles, in_dir, out_dir):
 
 
 def main():
-    h12_list = ['WIN_0101', 'WIN_0102', 'WIN_0103', 'WIN_0201', 'WIN_0202', 'WIN_0203', 'WIN_0204', 'WIN_0301', 'WIN_0302', 'WIN_0401', 'WIN_0402', 'WIN_0403', 'WIN_0501', 'WIN_0502', 'WIN_0503', 'WIN_0504', 'WIN_0601', 'WIN_0602', 'WIN_0603', 'WIN_0604', 'WIN_0701', 'WIN_0702', 'WIN_0703', 'WIN_0704']
+    #h12_list = ['WIN_0101', 'WIN_0102', 'WIN_0103', 'WIN_0201', 'WIN_0202', 'WIN_0203', 'WIN_0204', 'WIN_0301', 'WIN_0302', 'WIN_0401', 'WIN_0402', 'WIN_0403', 'WIN_0501', 'WIN_0502', 'WIN_0503', 'WIN_0504', 'WIN_0601', 'WIN_0602', 'WIN_0603', 'WIN_0604', 'WIN_0701', 'WIN_0702', 'WIN_0703', 'WIN_0704']
+    h12_list = ['LWBS_0206', 'LWBS_0509']
     percentiles = [50]
     intervals = [500, 200, 100, 50, 25, 10, 5, 2]
     merge_rasters('interval', h12_list, intervals, percentiles, DATA_PATH, OUT_PATH)

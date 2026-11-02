@@ -662,7 +662,7 @@ def streamstats_qaqc():
     stem = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     data_dir = os.path.join(stem, 'Data')
     ws_list = ['Lake_Champlain', 'Lamoille_River', 'Mettawee_River', 
-               'Missisquoi_River', 'Otter_Creek', 'Winooski_River']
+               'Missisquoi_River', 'Otter_Creek', 'Winooski_River', 'Lower_West_Branch_Susquehanna', 'Pine']
 
     for ws in ws_list:
         ss_uri = os.path.join(data_dir, ws, 'Stream_Stats/Stream_Stats.csv')

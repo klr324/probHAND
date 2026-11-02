@@ -4,8 +4,8 @@ import geopandas as gpd
 import os
 import matplotlib.pyplot as plt
 
-BASIN_DIRECTORY = r'D:\HAND\Data\Winooski_River'
-
+#BASIN_DIRECTORY = r'D:\HAND\Data\Winooski_River'
+BASIN_DIRECTORY = r'\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\'
 
 
 def condense_logbooks(logbook_dir, hydrology_dir, export_path):

@@ -4,8 +4,8 @@ import numpy as np
 import math
 import itertools
 
-IN_DIR = r'D:\HAND\mad_river\Data\Missisquoi_River\Post-processing\tiled'
-
+#IN_DIR = r'D:\HAND\mad_river\Data\Missisquoi_River\Post-processing\tiled'
+IN_DIR = r'\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Post-processing\tiled'
 
 def raster_is_empty(path):
     data_source = gdal.Open(path)

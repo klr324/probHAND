@@ -7,8 +7,11 @@ from osgeo import gdal
 import math
 import numpy as np
 
-TMP_HARDCODED_TREE_PATH = r"D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\WIN_Tree.csv"
-BASIN_IDS = ['WIN_0101', 'WIN_0102', 'WIN_0103', 'WIN_0201', 'WIN_0202', 'WIN_0203', 'WIN_0204', 'WIN_0301', 'WIN_0302', 'WIN_0401', 'WIN_0402', 'WIN_0403', 'WIN_0501', 'WIN_0502', 'WIN_0503', 'WIN_0504', 'WIN_0601', 'WIN_0602', 'WIN_0603', 'WIN_0604', 'WIN_0701', 'WIN_0702', 'WIN_0703', 'WIN_0704']
+TMP_HARDCODED_TREE_PATH = r"\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\LWBS_Tree.csv"
+BASIN_IDS = ['LWBS_0206', 'LWBS_0509']
+
+#TMP_HARDCODED_TREE_PATH = r"D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river\WIN_Tree.csv"
+#BASIN_IDS = ['WIN_0101', 'WIN_0102', 'WIN_0103', 'WIN_0201', 'WIN_0202', 'WIN_0203', 'WIN_0204', 'WIN_0301', 'WIN_0302', 'WIN_0401', 'WIN_0402', 'WIN_0403', 'WIN_0501', 'WIN_0502', 'WIN_0503', 'WIN_0504', 'WIN_0601', 'WIN_0602', 'WIN_0603', 'WIN_0604', 'WIN_0701', 'WIN_0702', 'WIN_0703', 'WIN_0704']
 #BASIN_IDS = ["OTR_0101","OTR_0102","OTR_0103","OTR_0104","OTR_0105","OTR_0106","OTR_0107","OTR_0108","OTR_0109","OTR_0201","OTR_0202","OTR_0203","OTR_0301","OTR_0302","OTR_0303","OTR_0304","OTR_0305","OTR_0306","OTR_0307","OTR_0401","OTR_0402","OTR_0501","OTR_0502"]
 #BASIN_IDS = ['MSQ_0101', 'MSQ_0102', 'MSQ_0103', 'MSQ_0104', 'MSQ_0105', 'MSQ_0201', 'MSQ_0202', 'MSQ_0203', 'MSQ_0204', 'MSQ_0301', 'MSQ_0302', 'MSQ_0401', 'MSQ_0402', 'MSQ_0501', 'MSQ_0502', 'MSQ_0503', 'MSQ_0601', 'MSQ_0602', 'MSQ_0603']
 INTERVAL_LIST = [2, 5, 10, 25, 50, 100, 200, 500]
@@ -16,10 +19,11 @@ INTERVAL_LIST = [2, 5, 10, 25, 50, 100, 200, 500]
 PERCENTILES = [50]
 RESOLUTION = 1
 THRESHOLD = '5179976'
-RIVER = 'Winooski_River'
+#RIVER = 'Winooski_River'
+RIVER = 'Lower_West_Branch_Susquehanna'
 REACH_TYPE = 'NHD'
-DATA_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river'
-
+#DATA_PATH = r'D:\Academic\UVM\ffi_floodplain_mapping_fall_2021\winooski_river'
+DATA_PATH = r'\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna'
 
 class Raster:
 

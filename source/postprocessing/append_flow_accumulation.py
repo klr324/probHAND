@@ -1,11 +1,15 @@
 from osgeo import gdal, ogr
 import math
 
-FLOW_DIR_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\flowdir_buff.tif"
-STREAM_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\MSQ_thresh-5179976_stream_network_5m.tif"
-APPEND_PTS_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\working\flowacc_add-ins.shp"
-OUTPUT_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\MSQ_thresh-5179976_stream_network_5m_update.tif"
+#FLOW_DIR_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\flowdir_buff.tif"
+#STREAM_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\MSQ_thresh-5179976_stream_network_5m.tif"
+#APPEND_PTS_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\working\flowacc_add-ins.shp"
+#OUTPUT_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\DEM_Derivatives\HUC8_derivatives\MSQ_thresh-5179976_stream_network_5m_update.tif"
 
+FLOW_DIR_PATH = r"\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\DEM_Derivatives\HUC8_derivatives\flowdir_buff.tif"
+STREAM_PATH = r"\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\DEM_Derivatives\HUC8_derivatives\LWBS_thresh-5179976_stream_network_5m.tif"
+APPEND_PTS_PATH = r"\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\working\flowacc_add-ins.shp"
+OUTPUT_PATH = r"\storage\work\klr324\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\DEM_Derivatives\HUC8_derivatives\LWBS_thresh-5179976_stream_network_5m_update.tif"
 
 class Raster:
 

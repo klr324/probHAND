@@ -49,7 +49,7 @@ def main():
     ### Initialize list of HUC8 watersheds to run
     huc8 = args.huc8
     if huc8 not in ['Lake_Champlain', 'Lamoille_River', 'Mettawee_River', 
-                    'Missisquoi_River', 'Otter_Creek', 'Winooski_River']:
+                    'Missisquoi_River', 'Otter_Creek', 'Winooski_River', 'Lower_West_Branch_Susquehanna','Pine']:
         print('ERROR: Please specify a valid HUC8 watershed!')
         sys.exit()
 

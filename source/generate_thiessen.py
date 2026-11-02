@@ -7,11 +7,14 @@ import math
 
 # Hardcoded values if script is run standalone
 #SRC_PATH = r"D:\HAND\mad_river\Data\Winooski_River\Stream_Polylines\NHD"
-SRC_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Stream_Points\NHD"
-DEST_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Thiessen_Polygons\NHD"
-CLIP_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Watershed"
-HAND_PATH = r'D:\HAND\mad_river\Data\Missisquoi_River\HAND'
-
+#SRC_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Stream_Points\NHD"
+#DEST_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Thiessen_Polygons\NHD"
+#CLIP_PATH = r"D:\HAND\mad_river\Data\Missisquoi_River\Watershed"
+#HAND_PATH = r'D:\HAND\mad_river\Data\Missisquoi_River\HAND'
+SRC_PATH = r"\storage\group\clim\default\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Stream_Points\NHD"
+DEST_PATH = r"\storage\group\clim\default\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Thiessen_Polygons\NHD"
+CLIP_PATH = r"\storage\group\clim\default\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\Watershed"
+HAND_PATH = r'\storage\group\clim\default\SaferApps\probHAND\samples\Data\Lower_West_Branch_Susquehanna\HAND'
 
 class Thiessen:
 
@@ -232,7 +235,8 @@ def thiessen_polygons(points_uri, polygon_uri, out_directory, hand_uri, in_type=
 
 def main():
     #reach_list = [p[:-8] for p in os.listdir(SRC_PATH) if p[-3:] == 'shp']
-    reach_list = ["MSQ_0101", "MSQ_0102", "MSQ_0103", "MSQ_0104", "MSQ_0105", "MSQ_0202","MSQ_0203","MSQ_0204","MSQ_0301","MSQ_0302","MSQ_0401","MSQ_0402","MSQ_0501","MSQ_0502","MSQ_0503","MSQ_0601","MSQ_0602","MSQ_0603"]
+    #reach_list = ["MSQ_0101", "MSQ_0102", "MSQ_0103", "MSQ_0104", "MSQ_0105", "MSQ_0202","MSQ_0203","MSQ_0204","MSQ_0301","MSQ_0302","MSQ_0401","MSQ_0402","MSQ_0501","MSQ_0502","MSQ_0503","MSQ_0601","MSQ_0602","MSQ_0603"]
+    reach_list = ["LWBS_0507", "LWBS_0605", "LWBS_0505", "LWBS_0503", "LWBS_0504", "LWBS_0506," "LWBS_0508","LWBS_0204", "LWBS_0203", "LWBS_0202", "LWBS_0201", "LWBS_0205", "LWBS_0103", "LWBS_0207","LWBS_0208", "LWBS_0604", "LWBS_0206", "LWBS_0509"]
     counter = 1
     times = []
     for reach in reach_list:
