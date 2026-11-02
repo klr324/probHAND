@@ -18,7 +18,9 @@ ws_id_dict = {
 	'Mettawee_River': 'MET',
 	'Missisquoi_River': 'MSQ',
 	'Otter_Creek': 'OTR',
-	'Winooski_River': 'WIN'
+	'Winooski_River': 'WIN',
+        'Lower_West_Branch_Susquehanna': 'LWBS',
+        'Pine': 'PINE'
 	}
 
 ### HUC8 code dictionary
@@ -28,7 +30,9 @@ huc8_code_dict = {
 	'MET': '04150401',
 	'MSQ': '04150407',
 	'OTR': '04150402',
-	'WIN': '04150403'
+	'WIN': '04150403',
+        'LWBS': '02050206',
+        'PINE': '02050205'
 	}
 
 ### HUC12s to exclude
@@ -43,11 +47,13 @@ exclude_list = ['LKC_0101', 'LKC_0102', 'LKC_0103', 'LKC_0104',
 ### Threshold flow accumulation; unit = pixels (or m^2); equals 9 sq miles
 # threshold_flow = 23309893.0 #23,309,893 m^2
 sq_meters_per_sq_mile = 2589988.0 #2,589,988.0 m^2 1 sq mile
+#sq_meters_per_sq_mile = 25899.0 #2,589,988.0 m^2 1 sq mile
 sq_miles = 2
 threshold_flow = float(round(sq_miles*sq_meters_per_sq_mile))
 
 ### Pixel size to use when tiling the HUC8 raster
 pixel_size = 5
+#pixel_size = 3
 
 ### Stage list to generate rating curve
 stage_list = [0.01, 0.1, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 15, 20, 50]
@@ -58,23 +64,73 @@ interval_list = [2, 5, 10, 25, 50, 100, 200, 500]
 ### Dictionary converting LULC codes into Manning's n coefficients
 ### Based on the calibrated Truehart model
 ### See email from Rebecca on July 31, 2019
+#lulc2mannings_dict = {
+#	'1':  0.12,  # Deciduous
+#	'2':  0.13,  # Coniferous
+#	'3':  0.06,  # Herbaceous
+#	'4':  0.10,  # Shrub
+#	'5':  0.05,  # Water
+#	'6':  0.12,  # Emergent wetland
+#	'7':  0.10,  # Scrub/shrub wetland
+#	'8':  0.13,  # Forested wetland
+#	'9':  0.065, # Crops
+#	'10': 0.06,  # Pasture
+#	'11': 0.06,  # Hay
+#	'12': 0.04,  # Barren
+#	'13': 0.05,  # Buildings
+#	'14': 0.13,  # Other
+#	'15': 0.13
+#	}
+
 lulc2mannings_dict = {
-	'1':  0.12,  # Deciduous
-	'2':  0.13,  # Coniferous
-	'3':  0.06,  # Herbaceous
-	'4':  0.10,  # Shrub
-	'5':  0.05,  # Water
-	'6':  0.12,  # Emergent wetland
-	'7':  0.10,  # Scrub/shrub wetland
-	'8':  0.13,  # Forested wetland
-	'9':  0.065, # Crops
-	'10': 0.06,  # Pasture
-	'11': 0.06,  # Hay
-	'12': 0.04,  # Barren
-	'13': 0.05,  # Buildings
-	'14': 0.13,  # Other
-	'15': 0.13
-	}
+        '12':  0.035,  # Water
+        '13':  0.035,  # Water
+        '14':  0.035,  # Water
+        '15':  0.035,  # Water
+        '16':  0.08,  # Natural succession
+        '54':  0.08,  # Natural succession
+        '55':  0.08,  # Natural succession
+        '56':  0.08,  # Natural succession
+        '21':  0.15, # Impervious roads
+        '22': 0.15,  # Impervious structures
+        '23': 0.15,  # Impervious other
+        '24': 0.12,  # Tree canopy over impervious 
+        '25': 0.12,  # Tree canopy over impervious 
+        '26': 0.12,  # Tree canopy over impervious 
+        '27': 0.035,  # Tree canopy over turf grass
+        '28': 0.035,  # Turf grass
+        '29':  0.035,  # Pervious developed, other
+        '34':  0.035,  # Pervious developed, other
+        '35':  0.035,  # Pervious developed, other
+        '36':  0.035,  # Pervious developed, other
+        '51':  0.035,  # Pervious developed, other
+        '52':  0.035,  # Pervious developed, other
+        '53':  0.035,  # Pervious developed, other
+        '31':  0.08, # Harvested forest
+        '32': 0.08,  # Harvested forest
+        '37': 0.03,  # Extractive
+        '41': 0.12,  # Forest
+        '65': 0.12,  # Forest
+        '75': 0.12,  # Forest
+        '42': 0.12,  # Tree canopy, other
+        '64':  0.12,  # Tree canopy, other
+        '74':  0.12,  # Tree canopy, other
+        '61':  0.06,  # Wetlands, riverine non-forested
+        '62':  0.06,  # Wetlands, riverine non-forested
+        '63':  0.06,  # Wetlands, riverine non-forested
+        '71':  0.06,  # Wetlands, terrene non-forested
+        '72':  0.06,  # Wetlands, terrene non-forested
+        '73':  0.06,  # Wetlands, terrene non-forested
+        '81':  0.05, # Cropland
+        '82': 0.05,  # Cropland
+        '86': 0.05,  # Cropland
+        '87': 0.05,  # Cropland
+        '88': 0.05,  # Cropland
+        '83': 0.045,  # Pasture/ hay
+        '84': 0.045,  # Pasture/ hay
+        '85': 0.045  # Pasture/ hay
+        }
+
 
 ### Manning's n mean and standard deviation
 ### Rebecca gave Jesse these values on July 30, 2019
